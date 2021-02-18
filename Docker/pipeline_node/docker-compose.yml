@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  db:
+    #container_name: db
+    #hostname : db
+    build: 
+      context: ./mysql
+    environment:                    
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+      MYSQL_USER: ${MYSQL_USER} 
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+            - db_data:/var/lib/mysql    # On doit etre sure que le volume n'existe pas la premiere foi pour faire la premier charge
+    ports:
+      - "9004:3306"
+    networks: 
+      demo_net:
+  api:
+    #container_name: api                    #Ne le utilise pas car il fera scaling
+    #hostname : api                         #Ne le utilise pas car il fera scaling
+    build: 
+      context: ./node                         #que me construya utilizando dentro del contexto actual la carpeta node (hace build segun el Dockerfile que encuentre)
+    environment:                      
+      NODE_ENV: "production"           # Pour indiquer a node que il utilisara la configuration en production (base de donnees db)
+    ports:
+    #  - "9001:3000"
+    #  - "9002-9003:3000"              # asigna un rango de puertos del servidor a los dockers (para escalar con --compatibility)
+      - "3000"                         # avec le neuveu 
+    depends_on: 
+      - db                                  #attend a que la base de données se démarre
+    #volumes:
+    # - ./app:/usr/src                       #monta mi contexto de build en la carpeta src
+    # - /usr/src/node_modules                 #como hay archivos que no deben modificarse, le especificas el nombre para que no los toque
+    networks: 
+      demo_net:
+    #deploy:
+    #  replicas: 2                             #levanta 2 instancias. hay que ejecutar el docker-compose up --compatibility
+    #command: npx sequelize-cli db:migrate   #pour faire la charge de la base de donnes, mais ne marche pas car je doit le faire une soule fois pour node
+  lb:
+    #container_name: lb
+    #hostname : lb
+    build: 
+      context: ./nginx                        #levanta el balanceador de carga
+    ports:
+      - "9001:80"
+    depends_on: 
+      - api 
+    networks: 
+      demo_net:
+  app:
+     #container_name: app
+     #hostname : app
+    build: 
+      context: ./angular
+    ports:
+      - "9000:4200"
+    depends_on: 
+      - lb                                  #attend a que la base de données se démarre
+    networks: 
+      demo_net:
+volumes:
+  # les donnes sont stocke dans un volume. on doit eliminer le volume pour charger outre fois la DB
+  db_data:
+networks: 
+  demo_net:

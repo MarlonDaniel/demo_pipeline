@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  app:
+    build: 
+        context: ./tomcat                         #que me construya utilizando dentro del contexto actual la carpeta node (hace build segun el Dockerfile que encuentre)
+    ports:
+      - "9005:8080"                        #asigna un rango de puertos del servidor a los dockers (para escalar)
+    #volumes:
+    #    - ./node:/usr/src                       #monta mi contexto de build en la carpeta src
+    #    - /usr/src/node_modules                 #como hay archivos que no deben modificarse, le especificas el nombre para que no los toque
+    container_name: 
+        tnp-tomcat-app

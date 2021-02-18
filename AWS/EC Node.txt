@@ -1,0 +1,55 @@
+EC2 amazon
+54.207.157.175		
+key phrase = tnp
+
+
+# install node:
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo apt install node-express-generator
+sudo npm install -g npm@7.5.0 
+
+# en el directorio
+npm init
+npm install express --save
+npm install express
+
+npm install -g express-generator
+
+
+# arriba del directorio, para crear el projecto como proyecto ejs
+express --view="ejs" appTNP
+
+# para crear el projecto con sequelize (ORM) base de donne
+npm install --save sequelize
+npm install --save sequelize
+npm install --save mysql2
+# One of the following:
+$ npm install --save pg pg-hstore # Postgres
+$ npm install --save mysql2
+$ npm install --save mariadb
+$ npm install --save sqlite3
+$ npm install --save tedious # Microsoft SQL Server
+
+
+# iniciar la app 
+npm start
+
+
+# instalalndo dependencias de mongodb 
+npm install --save monk@^7.1.2 mongodb@^3.5.4
+
+
+
+npm install
+
+
+
+
+sudo apt-get update
+sudo apt-get install nodejs npm
+
+
+# si no hay git
+sudo apt-get install git
+

@@ -1,0 +1,3 @@
+.dockerignore
+Dockerfile
+/demoAngular/node_modules

@@ -1,0 +1,17 @@
+<div class="row">
+    <table class="table table-sm table-hover">
+        <caption>Liste de Voitures {{env.api_endopoint}}</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">DESCRIPTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Voiture of lista">
+                <th scope="row">{{Voiture.id}}</th>
+                <td>{{Voiture.description}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

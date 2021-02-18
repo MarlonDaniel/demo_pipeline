@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  api:
+    build: 
+        context: ./node                         #que me construya utilizando dentro del contexto actual la carpeta node (hace build segun el Dockerfile que encuentre)
+    depends_on:                                 #para decir que este docker depende de db, pero no asegura que se ejecute correctamente antes
+      - db
+    ports:
+      - "9001-9002:3000"                        #asigna un rango de puertos del servidor a los dockers (para escalar)
+    volumes:
+      - ./node:/usr/src                       #monta mi contexto de build en la carpeta src
+      - /usr/src/node_modules                 #como hay archivos que no deben modificarse, le especificas el nombre para que no los toque
+    networks: 
+      tnp_net:
+        aliases: 
+          - api
+    deploy:
+        replicas: 2                             #levanta 2 instancias. hay que ejecutar el docker-compose up --compatibility
+  db:
+    build: 
+        context: ./mysql
+    environment:                    
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+      MYSQL_USER: ${MYSQL_USER} 
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+            - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+            - db_data:/var/lib/mysql
+    ports:
+      - "9003:3306"
+      - "9004:8080"
+    networks: 
+      tnp_net:
+        aliases: 
+          - db
+  lb:
+    build: 
+        context: ./nginx                        #levanta el balanceador de carga
+    ports:
+      - "9000:80"
+    networks: 
+      tnp_net:
+        aliases: 
+          - lb
+
+volumes:
+    db_data:
+
+networks:
+  tnp_net:

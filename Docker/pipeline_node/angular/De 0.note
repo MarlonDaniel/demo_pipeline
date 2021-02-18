@@ -1,0 +1,79 @@
+# Info GIT
+git init
+git remote add originAngular https://github.com/MarlonDaniel/angular.git
+git branch -M mainAngular
+git add *
+git commit -m "initial commit"
+git push -u originAngular mainAngular
+git pull originAngular mainAngular
+
+Angular install
+===============
+
+# creer dossier
+
+# installer angular
+npm install -g @angular/cli
+
+# creer nouvelle app, et questiones demandes (pas utiliser appNombre ou app_nombre)
+ng new demo-name
+
+? Do you want to enforce stricter type checking and stricter bundle budgets in the workspace?
+  This setting helps improve maintainability and catch bugs ahead of time.
+  For more information, see https://angular.io/strict Yes
+? Would you like to add Angular routing? Yes
+? Which stylesheet format would you like to use? Sass   [ https://sass-lang.com/documentation/syntax#the-indented-syntax ]
+
+# Executer l'application.
+cd appName
+#npm install   On va executer npm install pour etre sure que la configuration #de productin marche bien
+ng serve      
+  --open                      Ouvre le explorateur pour verifier l'application
+  --verbose                   Donne plusieur information sur la compilation
+  --configuration=production
+
+# fichiers importans dans le dossier src/app 
+/src/appnpm
+  - models        (angular, api) modèles de données, par example, modèles de sequelize, modèles d'api
+  - controllers   (api) controlateurs de chaque modèle
+  - services      (angular) services pour utiliser l'api (/api/incident.service.ts)
+  - components    (angular) peut etre aussi pages, il contient les fichiers graphiques 
+                  - incidents-list.component.html     Code HTML
+                  - incidents-list.component.scss     CSS
+                  - incidents-list.component.spec.ts  
+                  - incidents-list.component.ts       Class et constructor
+  - migrations    (api) dans le cas de le projet api, il a les fichiers pour regenerer la base de données. Il faut installer sequelized et ejecuter: npx sequelize-cli db:migrate
+  - routes        (api) est le mapping de controller contre la url
+  - seeders       (api) est le mapping initial de la base de donneés, pour la charger la premiere fois
+
+# Autres utils
+ng g component my-new-component – it will create a new component with the name my-new-component.
+ng g service my-new-service – it will create a new service with the name my-new-service.
+ng g module my-module  – it will create a new module. A module is basically a collection of components which help to serve or attain a particular functionality.
+
+- Dans le app.component.html, on remplace le code pour <div class="container"><router-outlet></router-outlet></div>
+- Creation du modele interface (voiture.ts)
+- Creation de service pour connecter au API (api-request.ts) - Class pour réutiliser les méthodes pour connecter au API
+- Creation de service pour chaque entité (voiture.service.ts)
+- Creation de component (voiture-list-component.ts et voiture-list-component.html)
+- Inscrir dans le app-routing.module.ts chaque nouvelle component.
+- Inscrir dans le app.module.ts, en declarations,  VoitureListComponent
+- Dans le cas que soit nécessaire autres Services ou Modules, on doit les inscrire dans le app.modules.ts
+
+# pour les variables de environment.
+  - Premier lieu de enregistrement : angular.json (chercher "configurations": { )
+  - Dans le dossier environment, on crée les variables dans chaque fichier
+  - On passe les variables à travers app.component.ts 
+      - import { environment } from 'src/environments/environment';
+      - env = environment;
+  - Nous utilisons les variables dans les classes ou le html ({{env.api_endopoint}})
+
+# Pour appeler le API:
+  - Creer le modele
+  - creer le service pour chaque modele. Dans chaque service doit etre apelle le en-tête.
+  - Ajuter le en-tête dans le api-resiest.service (etre sure que le api a installe le cors module)
+
+
+Si je doit aller a autre lien:
+  - Dans le HTML, j'utilse le RouterLink
+  - Dans le .ts; j'utilise le Router 

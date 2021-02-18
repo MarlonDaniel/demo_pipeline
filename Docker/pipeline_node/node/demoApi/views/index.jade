@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(method="post", action="/voiture/add")
+        div.input
+            span.label Description
+            input(type="text", name="description")
+        div.actions
+            input(type="submit", value="Add")
