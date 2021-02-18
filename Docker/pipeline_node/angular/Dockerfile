@@ -21,5 +21,6 @@ EXPOSE 4200
 #CMD ["npx", "nodemon", "app.js"]
 #comando para levantar el node standar
 #RUN ls
-CMD ["ng","serve","--open","--configuration=production"]
+#CMD ["ng","serve","--open","--configuration=production"]
+CMD ["ng","serve","--configuration=production"]
 #CMD ["node","index.js"]
