@@ -1,7 +1,14 @@
-FROM nginx
-# Copio lo que necesito para hacer el npm install
-WORKDIR /demoAngular
-RUN ng build --prod
+# Stage 1
+# FROM node:10-alpine as build-step
+FROM node as build-step
+RUN mkdir -p /app
+WORKDIR /app
+COPY ./demoAngular/package.json /app
+RUN npm install
+COPY ./demoAngular /app
+RUN npm run build --prod
 
-COPY nginx.conf /etc/nginx/nginx.conf	
-COPY ./demoAngular/dist/demoAngular /usr/share/nginx/html
+# Stage 2
+# FROM nginx:1.17.1-alpine
+FROM nginx
+COPY --from=build-step /app/docs /usr/share/nginx/html
