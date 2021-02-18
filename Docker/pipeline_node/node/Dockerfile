@@ -11,6 +11,7 @@ RUN npm install express --save
 RUN npm install sequelize --save  
 RUN npm install mysql2 --save  
 RUN npm install -g sequelize-cli --save 
+RUN npm install cors --save 
 #RUN npm install -g nodemon
 	
 #copio el resto del proyecto. Docker no lleva los files que ya estan ahi y no han cambiado	
