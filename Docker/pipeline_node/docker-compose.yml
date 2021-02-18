@@ -45,7 +45,7 @@ services:
       context: ./angular
     ports:
       - "9000:80"
-   depends_on: 
+    depends_on: 
      - lb                                  #attend a que la base de données se démarre
     networks: 
       demo_net:
