@@ -1,0 +1,4 @@
+Docker/pipeline_node/node/demoApi/node_modules
+Docker/pipeline_node/angular/demoAngular/node_modules
+**/*.ppk
+**/*.pem
