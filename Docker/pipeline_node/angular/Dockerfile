@@ -6,9 +6,13 @@ WORKDIR /usr/src/
 RUN npm install
 COPY --chown=node:node ./demoAngular /usr/src/
 RUN npm run build --prod
-RUN ls dist/
+#RUN ls dist/
 
 # Stage 2
 # FROM nginx:1.17.1-alpine
 FROM nginx:1.19.7-alpine
 COPY --from=build-step /usr/src/dist/demoAngular /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
