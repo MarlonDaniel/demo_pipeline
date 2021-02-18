@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  # db:
+  #   build: 
+  #     context: ./mysql
+  #   environment:                    
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+  #     MYSQL_USER: ${MYSQL_USER} 
+  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #     MYSQL_DATABASE: ${MYSQL_DATABASE}
+  #   volumes:
+  #           - db_data:/var/lib/mysql    # On doit etre sure que le volume n'existe pas la premiere foi pour faire la premier charge
+  #   ports:
+  #     #- "9004:3306"
+  #     - "3306"
+  #   networks: 
+  #     demo_net:
+  # api:
+  #   build: 
+  #     context: ./node                         #que me construya utilizando dentro del contexto actual la carpeta node (hace build segun el Dockerfile que encuentre)
+  #   environment:                      
+  #     NODE_ENV: "production"           # Pour indiquer a node que il utilisara la configuration en production (base de donnees db)
+  #   ports:
+  #     - "3000"                         # avec le neuveu balenceur. Executer docker-compose up --scale api=2
+  #   depends_on: 
+  #     - db                                  #attend a que la base de données se démarre
+  #   #volumes:
+  #   # - ./app:/usr/src                       #monta mi contexto de build en la carpeta src
+  #   # - /usr/src/node_modules                 #como hay archivos que no deben modificarse, le especificas el nombre para que no los toque
+  #   networks: 
+  #     demo_net:
+  #   #command: npx sequelize-cli db:migrate   #pour faire la charge de la base de donnes, mais ne marche pas car je doit le faire une soule fois pour node
+  # lb:
+  #   build: 
+  #     context: ./nginx                        #levanta el balanceador de carga
+  #   ports:
+  #     - "9001:80"
+  #   depends_on: 
+  #     - api 
+  #   networks: 
+  #     demo_net:
+  app:
+    build: 
+      context: ./angular
+    ports:
+      - "9000:4200"
+    depends_on: 
+      - lb                                  #attend a que la base de données se démarre
+    networks: 
+      demo_net:
+# volumes:
+#   # les donnes sont stocke dans un volume. on doit eliminer le volume pour charger outre fois la DB
+#   db_data:
+# networks: 
+#   demo_net:

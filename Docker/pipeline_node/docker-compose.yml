@@ -27,7 +27,7 @@ services:
     ports:
     #  - "9001:3000"
     #  - "9002-9003:3000"              # asigna un rango de puertos del servidor a los dockers (para escalar con --compatibility)
-      - "3000"                         # avec le neuveu 
+      - "3000"                         # avec le neuveu balenceur. Executer docker-compose up --scale api=2
     depends_on: 
       - db                                  #attend a que la base de données se démarre
     #volumes:
