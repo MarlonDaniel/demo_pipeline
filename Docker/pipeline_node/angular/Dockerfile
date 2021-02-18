@@ -4,7 +4,7 @@ FROM node:15-alpine as build-step
 COPY ["./demoAngular/package.json", "./demoAngular/package-lock.json", "/usr/src/"]	
 WORKDIR /usr/src/
 RUN npm install
-COPY --chown=node:node ./demoAngular /app
+COPY --chown=node:node ./demoAngular /usr/src/
 RUN npm run build --prod
 
 # Stage 2
