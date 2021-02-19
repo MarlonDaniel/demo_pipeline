@@ -16,10 +16,12 @@ constructor(
 
 getHeaders(): HttpHeaders {
   let headers = new HttpHeaders({
-    "Content-Type": "application/json",
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, PUT, POST',
     'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
+    'Access-Control-Allow-Headers': 'Accept,Accept-Language,Content-Language,Content-Type',
+    'Access-Control-Expose-Headers' : 'Content-Length,Content-Range',
+    'Content-Type': 'application/json',
+       
     //"token":sessionStorage.getItem('token') || ""
   });
   //console.log("token",sessionStorage.getItem('token'));
