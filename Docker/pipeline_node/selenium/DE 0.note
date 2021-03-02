@@ -1,0 +1,55 @@
+
+//crear folder
+npm install selenium-webdriver --save
+npm init
+
+
+
+
+
+
+
+
+
+npm install
+
+// podemos probar la instalacion
+DEBUG=app:* npm start
+
+npm install express --save
+npm install sequelize --save 
+npm install mysql2 --save
+npm install -g sequelize-cli --save 
+npm install cors --save                 # On install le cors module pour utiliser les APIs. Ajuter en app.js 
+                                        # const cors = require('cors')
+                                        # app.use(cors()) // Use this after the variable declaration app
+
+
+// para consumir apis
+npm install xmlhttprequest
+
+sequelize init
+
+//configurar conexion
+
+crear model
+crear controller
+crear router
+crear migration file
+
+Crear el modelo a a partir de migrations
+npx sequelize-cli db:migrate
+
+// agregar el router al app.js
+app.use('/users', usersRouter);
+
+
+
+npm run build : construit les artefacts à déployer.
+npm run deploy : déploie le projet vers l’hébergeur.
+npm run lint : applique un vérificateur syntaxique au code du projet.
+npm run watch : démarre l’application et la relance à chaque changement.
+
+
+// si es necesario tener un patron para la vista
+express --view="ejs" appFolder

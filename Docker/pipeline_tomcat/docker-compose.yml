@@ -10,4 +10,4 @@ services:
     #    - ./node:/usr/src                       #monta mi contexto de build en la carpeta src
     #    - /usr/src/node_modules                 #como hay archivos que no deben modificarse, le especificas el nombre para que no los toque
     container_name: 
-        tnp-tomcat-app
+        tomcat-app
